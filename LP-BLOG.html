@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Personal</title>
+    <style>
+        :root {
+            --background-color: rgba(255, 253, 230, 0.9); /* Un color claro con tonos amarillos suaves */
+            --header-bg: rgba(255, 204, 0, 0.85); /* Un amarillo dorado que resalta pero es cálido */
+            --intro-bg: rgba(255, 244, 193, 0.8); /* Un amarillo más suave, para un fondo claro */
+            --article-bg: rgba(255, 255, 245, 0.9); /* Blanco cálido para mantener el texto legible */
+            --accent-color: #FF9900; /* Un naranja vibrante para contrastar con el fondo */
+            --footer-bg: #4B371C; /* Un marrón oscuro para un toque natural */
+            --footer-color: #FCECC1; /* Color claro para el texto del pie de página */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('sunset-sunflowers.jpeg'); /* Imagen local */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            text-align: center;
+            padding: 2rem;
+            background-size: cover;
+            background-position: center;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .intro-text {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--intro-bg);
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #4B371C; /* Marrón oscuro para armonizar con el tema cálido */
+        }
+
+        section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 2rem;
+        }
+
+        article, aside {
+            background-color: var(--article-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        article:hover, aside:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--accent-color); /* Naranja vibrante */
+        }
+
+        .gallery, .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            justify-items: center;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        img:hover, video:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+        }
+
+        .comments-section {
+            margin-top: 2rem;
+            background-color: var(--intro-bg);
+            padding: 1.5rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        #commentForm {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, textarea {
+            margin-bottom: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF7700; /* Naranja más oscuro para el hover */
+        }
+
+        .comment {
+            margin-top: 1rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a mi Blog-Love</h1>
+    </header>
+    <div class="intro-text">
+        <h2>Rincón de Su Esencia</h2>
+        <p>En este sitio solo podrás ver y conocer a la hermosa de mi enamorada</p>
+    </div>
+    <section>
+        <article>
+            <h2>Mi chica linda</h2>
+            <p>Este es un artículo corto sobre mi enamorada</p>
+            <div class="gallery">
+                <img src="imagen-1.jpeg" alt="Retrato de mi chica con uniforme">
+                <img src="imagen-2.jpeg" alt="Retrato de mi chica sonriendo">
+            </div>
+        </article>
+        <aside>
+            <h2>Videos de mi preciosa</h2>
+            <div class="video-gallery">
+                <video controls>
+                    <source src="video1.mp4" type="video/mp4">
+                    Tu navegador no soporta este formato de video.
+                </video>
+                <video controls>
+                    <source src="video2.mp4" type="video/mp4">
+                    Tu navegador no soporta este formato de video.
+                </video>
+            </div>
+        </aside>
+    </section>
+    <div class="comments-section">
+        <h2>Déjame tu opinión acerca de Cami</h2>
+        <form id="commentForm">
+            <input type="text" id="username" placeholder="Tu nombre" required>
+            <textarea id="comment" placeholder="Escribe tu comentario..." required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="commentsList"></div>
+    </div>
+    <footer>
+        <p>Derechos Reservados 2024 - 2028</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.gallery img');
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    const lightbox = document.createElement('div');
+                    lightbox.style.position = 'fixed';
+                    lightbox.style.top = 0;
+                    lightbox.style.left = 0;
+                    lightbox.style.width = '100%';
+                    lightbox.style.height = '100%';
+                    lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                    lightbox.style.display = 'flex';
+                    lightbox.style.justifyContent = 'center';
+                    lightbox.style.alignItems = 'center';
+                    lightbox.innerHTML = `<img src="${img.src}" style="max-width: 90%; max-height: 90%;">`;
+                    document.body.appendChild(lightbox);
+
+                    lightbox.addEventListener('click', function() {
+                        document.body.removeChild(lightbox);
+                    });
+                });
+            });
+
+            // Manejo de comentarios
+            document.getElementById('commentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const comment = document.getElementById('comment').value;
+
+                const commentsList = document.getElementById('commentsList');
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `<strong>${username}:</strong> <p>${comment}</p>`;
+                
+                commentsList.appendChild(newComment);
+
+                // Limpiar el formulario
+                document.getElementById('username').value = '';
+                document.getElementById('comment').value = '';
+            });
+        });
+    </script>
+</body>
+</html>
